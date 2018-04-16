@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <style type="text/css">
+  	.studentRow{
+  		border-bottom: 1px solid black;
+  		display: table;
+  		width: 100%;
+  	}
+  	.studentRow > div{
+  		float: left;
+  		display: table-cell;
+  		width: 45%;
+  	}
+  	.studentRow > div:last-child{
+  		width: 10%;
+  	}
+  </style>
+<script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script type="text/javascript">
+var sgt;
+
+$(document).ready(function(){
+  
+  sgt = new SGT(students);
+})
+
+var students = [
+  { name: 'Dirk', course: 'Math', grade: 95},
+  { name: 'Jack', course: 'science', grade: 82},
+  { name: 'Sally', course: 'math', grade: 96},
+  { name: 'Michael', course: 'science', grade: 65},
+  { name: 'Tim', course: 'history', grade: 89},
+  { name: 'Pearl', course: 'history', grade: 78},
+  { name: 'Trevor', course: 'science', grade: 86},
+]
+
+
+function SGT(students){
+  
+  this.students = students;
+  this.init = function(){
+    $("#add").click(this.addStudent.bind(this));
+    this.replaceAndRender();
+  }
+  this.renderOneStudentOnDom = function(singleStudent){
+    var student = $("<div>",{
+      'class': 'studentRow'
+    });
+    var name = $("<div>", {
+      text: singleStudent.name
+    });
+    var course = $("<div>",{
+      text: singleStudent.course
+    });
+    var grade = $("<div>",{
+      text: singleStudent.grade
+    });
+    student.append(name, course, grade);
+    return student;
+  }
+  this.renderAllStudents = function(){
+    var studentDom = [];
+    console.log(this.students);
+    for(var i=0; i< this.students.length; i++){
+      studentDom.push( this.renderOneStudentOnDom( this.students[i]));
+    }
+    return studentDom;
+  }
+  this.replaceAndRender = function(){
+    var container = $("#studentContainer");
+    container.empty();
+    container.append (this.renderAllStudents());
+  }
+  this.addStudent = function(){
+    var name = $("#studentName").val();
+    var course = $("#studentCourse").val();
+    var grade = parseInt($("#studentGrade").val());
+    var student = {
+      name: name,
+      course: course,
+      grade: grade
+    }
+    this.students.push(student);
+    this.clearInputs();
+    this.replaceAndRender();
+  }
+  this.clearInputs = function(){
+    $("#studentName").val('');
+    $("#studentCourse").val('');
+    $("#studentGrade").val('');
+  }
+  this.init();
+}
+  </script>
+</head>
+<body>
+  <div>
+    <input type="text" id="studentName" placeholder="name">
+    <input type="text" id="studentCourse" placeholder="name">
+    <input type="text" id="studentGrade" placeholder="name">
+    <input type="button" id="add" value="add">
+  </div>
+<div id="studentContainer"></div>
+</body>
+</html>
