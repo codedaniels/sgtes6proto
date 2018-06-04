@@ -21,14 +21,14 @@
   </style>
 <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script type="text/javascript">
-var sgt;
+let sgt;
 
 $(document).ready(function(){
   
   sgt = new SGT(students);
 })
 
-var students = [
+const students = [
   { name: 'Dirk', course: 'Math', grade: 95},
   { name: 'Jack', course: 'science', grade: 82},
   { name: 'Sally', course: 'math', grade: 96},
@@ -47,39 +47,39 @@ function SGT(students){
     this.replaceAndRender();
   }
   this.renderOneStudentOnDom = function(singleStudent){
-    var student = $("<div>",{
+    const student = $("<div>",{
       'class': 'studentRow'
     });
-    var name = $("<div>", {
+    const name = $("<div>", {
       text: singleStudent.name
     });
-    var course = $("<div>",{
+    const course = $("<div>",{
       text: singleStudent.course
     });
-    var grade = $("<div>",{
+    const grade = $("<div>",{
       text: singleStudent.grade
     });
     student.append(name, course, grade);
     return student;
   }
   this.renderAllStudents = function(){
-    var studentDom = [];
+    const studentDom = [];
     console.log(this.students);
-    for(var i=0; i< this.students.length; i++){
+    for(let i=0; i< this.students.length; i++){
       studentDom.push( this.renderOneStudentOnDom( this.students[i]));
     }
     return studentDom;
   }
   this.replaceAndRender = function(){
-    var container = $("#studentContainer");
+    const container = $("#studentContainer");
     container.empty();
     container.append (this.renderAllStudents());
   }
   this.addStudent = function(){
-    var name = $("#studentName").val();
-    var course = $("#studentCourse").val();
-    var grade = parseInt($("#studentGrade").val());
-    var student = {
+    const name = $("#studentName").val();
+    const course = $("#studentCourse").val();
+    const grade = parseInt($("#studentGrade").val());
+    const student = {
       name: name,
       course: course,
       grade: grade
@@ -94,6 +94,17 @@ function SGT(students){
     $("#studentGrade").val('');
   }
   this.init();
+}
+
+var name = 'daniel';
+var myAge = 38;
+var hometown = 'fullerton';
+var numnum = 'pizza'
+const o = {
+  name,
+  'age': myAge,
+  hometown,
+  'favorite food': numnum
 }
   </script>
 </head>
